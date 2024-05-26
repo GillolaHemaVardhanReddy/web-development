@@ -1,0 +1,70 @@
+1. Access user-submitted data
+
+There are a few ways for us to receive data from users. For example, we can use req.params, req.query, and req.body.
+
+req.params:
+
+// GET https://example.com/user/123
+
+app.get("user/:id", (req, res) => {
+  console.log(req.params.id); // "123"
+});
+
+req.query
+
+// GET https://example.com/user?userID=123&action=submit
+
+app.get("user/", (req, res) => {
+  console.log(req.query.userID); // "123"
+  console.log(req.query.action); // "submit"
+});
+
+req.body
+
+// POST https://example.com/login {username: "anna", password: "1234"}
+
+app.get("login/", (req, res) => {
+  console.log(req.body.username); // "anna"
+  console.log(req.body.password); // "1234"
+});
+
+
+2. Access the URL values
+
+We can access an object that stores URL information such as protocol, hostname, path, and subdomains with a res object to handle URL-related tasks.
+
+// https://learn.devhandbook.com/search?keyword=express
+
+app.get("/search", (req, res) => {
+  console.log(req.protocol); // "https"
+  console.log(req.hostname); // "devhandbook.com"
+  console.log(req.path); // "/search"
+  console.log(req.originalUrl); // "/keyword=express"
+  console.log(req.subdomains); // "["learn"]"
+});
+
+3. Access Header values
+
+In addition to sending data and users, the browser also sends headers containing additional information such as content-type, content-length, and other information.
+
+app.post("/login", (req, res) => {
+  req.header("Content-Type");
+  req.header("Content-Length");
+  req.header("user-agent");
+  req.header("Authorization");
+});
+
+
+4. Access cookies value
+
+When using cookie-parse middleware, the req.cookies object will include the user’s cookies.
+
+If the request contains no cookies, it defaults to {}.
+
+app.post("/login", (req, res) => {
+  req.cookies.isShowPopup;
+  req.cookies.sessionID;
+});
+
+req.cookies	An object containing cookies sent by the request
+res.ip	Contains the remote IP address of the request.
