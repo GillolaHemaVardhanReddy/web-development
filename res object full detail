@@ -1,0 +1,43 @@
+II. Response methods
+
+In Express, there are some response methods:
+
+    res.send(): Send data
+    res.json(): Return a JSON data
+    res.status(): Specify HTTP response code
+    res.redirect(): Redirect to a certain path
+    res.render(): Return a view template
+
+1. res.send()
+
+res.send() is probably the most famous method used on res. With res.send() you can respond to HTTP requests with all kinds of data.
+
+app.get("/", (req, res) => {
+  res.send({ people: ["Anna", "John"] }); // Send JSON data.
+  res.send("<h1>Hello World</h1>"); // Send HTML
+  res.send("Normal text"); // Send text
+});
+
+2. res.json()
+
+res.json() will return JSON.
+
+app.get("/", (req, res) => {
+  res.json({ people: ["Anna", "John"] }); // Send JSON data.
+});
+
+3. res.status()
+
+res.status specifies the HTTP response code, representing the response’s status.
+
+app.get('/', (req, res) => {
+  res.status(302)
+});
+
+4. res.redirect()
+
+You can redirect customers to routes in your app or to different websites:
+
+app.get("/nana", (req, res) => {
+  res.redirect("/home");
+});
