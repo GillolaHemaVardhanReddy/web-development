@@ -1,0 +1,8 @@
+Each code will represent a different response state.
+
+    1xx : Information
+    2xx: Success
+    3xx: Redirects
+    4xx: Error in clients
+    5xx: Server error
+    
