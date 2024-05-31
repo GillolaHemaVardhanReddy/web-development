@@ -1,0 +1,62 @@
+REGEX
+  /.../ -> always wrap your regex with '/'
+    other way to create regex "const reguarExp = new RegExp('^a...s$');"
+  /^a...s$/ -> starts with a and ends with s
+    ^ indicates start with
+    $ indicates ends with
+  ^ and $ are metacharecters there are in total 11
+    1. []  -> anything inside it acts like or eg: ['1bc'] -> string must have either '1' or 'b' or 'c' to be true
+        [a-e] -> a or b or c or d or e
+        [1-5] -> 1 or 2 or 3 or 4 or 5
+        [0-39] is the same as [01239]
+    invert operator in [] : acts as not
+        [^abc] means any character except a or b or c.
+        [^0-9] means any non-digit character.
+    2. . -> A period matches any single character (except newline '\n').
+                                                   ... means it matches any 3 charecters
+                                                   .. means it matches any 2 charecters
+    3. ^ -> The caret symbol ^ is used to check if a string starts with a certain character.
+    4. $  -> The dollar symbol $ is used to check if a string ends with a certain character.
+    5. * -> The star symbol * matches zero or more occurrences of the pattern left to it.
+    6. +  -> The plus symbol + matches one or more occurrences of the pattern left to it.
+    7. ? -> The question mark symbol ? matches zero or one occurrence of the pattern left to it.
+        ma?n -> means leftover string after m or ma should be 'n' only
+              -> mn matches
+              -> man matches 
+              -> maan no match
+              -> woman match
+    8. {} -> Consider this code: {n,m}. This means at least n, and at most m repetitions of the pattern left to it.
+        a{2,3} -> 'abc dat' no match ,
+        abc dat	No match
+        abc daat	1 match (at daat)
+        aabc daaat	2 matches (at aabc and daaat)
+        aabc daaaat	2 matches (at aabc and daaaat)
+    9. () [group] -> Parentheses () is used to group sub-patterns. For example, (a|b|c)xz match any string that matches either a or b or c followed by xz
+    10.\ -> Backslash \ is used to escape various characters including all metacharacters. For example,
+        \$a match if a string contains $ followed by a
+        here $ not interpreted as regex metacharecter
+    11. | -> Vertical bar | is used for alternation (or operator).
+
+
+SPECIAL MATCHING:
+  \A - Matches if the specified characters are at the start of a string.
+    \Athe	the sun	Match
+  \b - Matches if the specified characters are at the beginning or end of a word
+    foo\b	a football	No match [either write \bString or String\b]
+  \B - Opposite of \b. Matches if the specified characters are not at the beginning or end of a word.
+    foo\B	a football match [either write \BString or String\B]
+
+
+
+In JavaScript, you can use regular expressions with RegExp() methods: test() and exec().
+
+There are also some string methods that allow you to pass RegEx as its parameter. They are: match(), replace(), search(), and split().
+
+Method	Description
+exec()	Executes a search for a match in a string and returns an array of information. It returns null on a mismatch.
+test()	Tests for a match in a string and returns true or false.
+match()	Returns an array containing all the matches. It returns null on a mismatch.
+matchAll()	Returns an iterator containing all of the matches.
+search()	Tests for a match in a string and returns the index of the match. It returns -1 if the search fails.
+replace()	Searches for a match in a string and replaces the matched substring with a replacement substring.
+split()	Break a string into an array of substrings.
