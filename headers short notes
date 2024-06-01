@@ -1,0 +1,41 @@
+http headers are some kind of indication for meta data of what res or req consists inside it
+any header is actually a key value pair
+there are 4 categories of headers :
+1.Request header 
+2.response header
+3.payload header
+4.respresentation header
+this does not mean request header cant be in respose header or vise versa so 
+both req and res headers may also be in payload headers
+-------- REQUEST HEADERS -------------------
+when ever request is recieved from client server understands its type and meaning from headers 
+eg:
+  host: www.abc.com
+  user-agent: websiteSniffer/1.0
+  referer: https://websniffer.com
+  connection: close
+  Accept-Language: en-US  // client understands only englisg
+  Accept-Encoding : gzip // client can understand data compressed/encoded in gzip format only
+
+user-agent and host represent whos sending the req
+Accept-Language & accept-encoding tells what the client can understand
+
+--------------RESPONSE HEADER ---------------
+  whenever server sends data to client then it helps client understand using headers what type and meta data of response it sent
+eg:
+  connection: keep-alive
+  server: server-name
+  content-type: type of content it sent
+  transfer-encoding: type of encoding it did
+  last-modified: date of modification
+  E-tag: version 
+----------------REPRESENTATION HEADER ---------------------
+  -> they talk about the data that has been transfered
+the data sent may be of type xml,json,encoded in some format etc...
+  eg:
+    content-type: text/html
+    content-encoding: gzip
+    content-length: 3523
+    content-range: bytes 50-1000
+    content-location: /docs/fo.xml
+  
