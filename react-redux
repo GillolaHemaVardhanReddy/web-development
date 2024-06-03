@@ -1,0 +1,37 @@
+just follow all the steps done from part 5 till part 8 and redux-toolkit more docs in react project
+changes are:
+  1. in case of imports: we use import statements in case of require()
+  2. in case of exports we use 
+        export default NamedSlice.reducer
+        export const {ordered,restocked} = cakeSlice.actions or anyNamedSlice.actions
+  3. directly export function whuch uses createAsyncThunk 
+  4. to avoid naming conventions in case of ordered and restocked use 
+        import {ordered as cakeOrdered} from 'destination of cakeSlice.actions exported'
+  5. to integrate both react and reduxtoolkit use react-redux
+        npm i react-redux
+        to provide our redux store to react application react-redux provides Provider component with props store
+        import {Provider} from 'react-redux'
+        <Provider store = {store}> // import the main store from redux app folder in redux folder
+            <App/>
+        </Provider>
+   6. how to access state in store
+    we use a special hook named useSelector() imported from 'react-redux'
+      import {useSelector} from 'react-redux'
+      const numOfCakes = useSelector((state)=>state.cake.numOfCakes)
+          --> here useSelector takes arg mas a function
+              this function is known as selector function
+              and state refers to store and cake refers to reducer key name in store object or reducer
+              at last noOfCakes refer to its state and access it from there
+            so in selector function state is taken as arg and 
+            this state is our store typically
+            this store has various reducers in reducers key value pair of object taken by configureStore 
+            every reducer in reducers object has a key value pair where key is used to refer the value and value is our specific reducer of a feature
+            in this feature reducer we have the original state where we can directly access any state variable using .
+  7. how to dispatch actions from react
+      we have a special hook named useDispatch in recat-redux
+          import {useDispatch} from 'react-redux'
+      and also import actions required from specific feature created by createSlice
+      store useDispatch in some other constant and use like this: cosnt dispatch = useDispatch()
+      in any event listener like onClick use dispatch(action)
+      <button onClick={()=>dispatch(ordered(2))}>order a cake</button>
+  8. we can do same for fetchdata too 
