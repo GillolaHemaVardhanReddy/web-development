@@ -1,0 +1,44 @@
+untill now we saw synchronous actions : as soon as action was dispatched the state was immediatly updated
+ASYNC ACTIONS: asynchronous api calls to fetch_Data from an endpoint and use that data in our application 
+eg: fetch a list of users from an api endpoint and stores it in the redux store
+STATE in async:
+  stateName = {
+    loading : false, // this tells either data is being fetched or not 
+    data : [], // we store data retrived from end point and use it in application
+    error: '' // this stores error if anything goes wrong 
+  }
+ACTIONS in async : these actions are pretty normal not an async actions --> original async functions are at end of this docs
+  eg: it might be like 
+      const fetchUsersRequest = ()=> return { type: FETCH_USER_REQUESTED, info: 'started fetching user data'} -> action indicates to fetch for useres data from an end point
+      const fetchUsersSuccess = ()=> return {type: FETCH_USERS_SUCCEEDED,info: 'users successfully retrived'} -> if users data retrived successful then this action will be used
+      const fetchUsersFail = ()=> return {type: FETCH_USERS_FAIL, info: 'failed to fetch data'} -> is useres retrival fails then we use this action 
+
+REDUCER in async:
+  eg: 
+      case : FETCH_USERS_REQUESTED -> if reducer gets this action then 
+            set loading to true and fetch data from an end point
+      case : FETCH_USERS_SUCCEEDED -> if users data successfully retrived then do thi
+      case : FETCH_USERS_FAIL -> if users data not retrived successfully then use this code
+REDUX-THUNK : it is a redux package and it is a standard way to define async action creators
+it is literally a middleware 
+defination of async action creators: 
+npm i redux-thunk axios
+const thunkMiddleware = require('redux-thunk').default
+use ApplyMiddleware(thunkMiddleware) as 2nd arg in createStore(reducer,----)
+in async action creators they rerturn functions instead of values and those functions take argument/parameter as dispatch 
+we write everything related to fetching data inside this returned function and dispatch the normal action creators
+in these async action creators we can ignore async and await keywords
+eg: 
+      const fetchUsers = ()=>{
+        return function(dispatch){
+          try{
+            dispatch(fetchUsersRequest()) ---> this will dispatch the FETCH_USER_REQUEST action as showed in above 
+            const resp = axios.get('apiurl')
+            dispatch(fetchUsersSuccess(resp)) ---> this dispatches FETCH_USERS_SUCCESS action as shown above 
+          }catch(err){
+            fetchUsersFail(err.message) --> this dispatches FETCH_USERS_FAIL action as shown above 
+        }
+      }
+  NOW this async action creator function dispatches the normal action creators and these reach reducer like mentioned below:
+        store.dispatch(fetchUsers()) ---> we wont dispatch normal action creators directly we just dispatch the async action creator
+        
