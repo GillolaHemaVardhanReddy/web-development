@@ -5,11 +5,13 @@ we create store in app folder in the structure
 in store.js
 in redux we created store using createStore from redux module but here we create store using configureStore 
 1. const configureStore = require('@redux/toolkit').configureStore
-2. import the reducers exported from features eg: cakeReducer we exported in part 5
+2. import the reducer exported from features eg: cakeReducer we exported in part 5
+   and import the reducer exported from iceCream feature eg: iceCreamReducer we exported in part 7
 3. now invoke the configureStore function
   const store = configureStore({ // configure store accepts an object as an argument
       reducer: { // we have a key named reducer which acts as rootreducer where we combined all reducers in redux --> we can combine multiple reducers like this from diffrent features
         cake: cakeReducer, // cake is key name for cakeReducer
+        icecream: iceCreamReducer, // as reducer is default export we imported as other name
       },
   })
 our store is now complete
@@ -22,6 +24,8 @@ like
 2. const unsubscribe = store.subscribe(listner) // this listner will run everytime the update occure in store --> listner is a function
 to dispatch the actions we need to import the action creators from cake feature where we exported them at end from cakeSlice
 3. we just use action creators like this
-store.dispatch(cakeActions.ordered(2))
+store.dispatch(cakeActions.ordered(2)) // cakeActions and iceCreamActions are exported as named so we use exact name when imported
+store.dispatch(iceCreamActions.ordered(3))
 and
 store.dispatch(cakeActions.restocked(3))
+store.dispatch(iceCreamActions.restocked(1))
