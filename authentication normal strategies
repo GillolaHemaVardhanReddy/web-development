@@ -1,0 +1,33 @@
+authentication in webdevelopment is recognizing user who is trying to access an account is the original owner of the account or not
+
+if authenticated :
+ we take username and password to verify the user 
+ we check if the username and password is correct and matching on server
+ if user is authenticated then how to let browser know that he is authenticated and 
+ how does server know user is authenticated when request comes in
+    weather user have to enter his credentials each and every time he sends request to server
+                                    or
+    we have some strategies to let server and browser know that user is authenticated 
+        1. local storage
+        2. cookie storage
+        3. session storage
+    for certain time period using these strategies will bypass the quthentication requests but in back end its actually authenticating user for every request sent
+    without user involvement
+1. local storage : for local storage authentication we can just store some part of user locally and authenticate whenever request is raised 
+    but we can only store less information in it and it is not so secure way anyone who has access to local system can get their hands on it
+2. cookie storage : here we are just storing the user data in encrypted form 
+    Cookies are stored in the HTTP headers as key-value pairs it stored in client side or front end
+    this strategy is also not so secure when cookies are found by user he can decode and get user details 
+3. session storage : here the cookie is used but not to store the user details 
+      used to store session id 
+      session id is the reference id of session stored on database for temporary time period
+      it is fast and secure way where user details are stored in session and session id is stored in cookie 
+for every strategy we can set timer to get expired
+
+JWT: 
+  in these techniques above its unsecure without encoding/encrypting so to encrypt data we use the JWT jsonwebtoken
+  in case of jwt we create a digital signature and store it in the repective technique 
+  it takes three inputs and encrypt them 
+      1. headers
+      2. payload
+      3. secret key
