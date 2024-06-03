@@ -1,0 +1,17 @@
+whenever client sends request session is used for user authentication 
+sessions are created on server with a session id and it stores user data
+when a http req is sent from client to server 
+a response can return with instructions to set a cookie with session id so that it can be stored on client
+install express-session npm package
+
+const session = require('express-session')
+app.use(session({
+  secret: 'some secret', // this secret is used to sign the cookie
+  saveUninitialized: false, // to avoid saving unmodified session data to session store
+  resave: false // it forces session to be saved back to session store even is the session was never modified during req
+  cookie :{
+    maxAge : 30000 // 30 sec after cookie expires 
+  }
+}))
+
+when a sesion is created and the cookie is not expired then server wont generate new session or session id
