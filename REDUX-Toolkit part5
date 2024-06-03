@@ -1,0 +1,51 @@
+now the newer version;
+why redux toolkit:
+1. AS we can see there is a lot of boilerplate code in older version 
+like : action , action object , action creator , switch statement in reducer 
+in bigger applications this will confuse the developer 
+2. redux require a lot of other packages installed to work
+  like redux-thunk,immer,redux-devtools
+redux tool kit has a inbuilt toolkit to improve redux
+it is abstract over setup process 
+we should only handle only most common usecases
+include some usefull utilities
+setup:
+  run command npm i @reduxjs/toolkit
+redux folder structure:
+rootFolder -> redux
+        ... Childfoldername -> app
+        ... Childfoldername -> features
+              ... separate folders for each features eg: (cake,iceCream)
+        ... index.js
+with redux toolkit recommendation is to group togather the reducer logic and actions for a single feature in a single file
+inside each feature folder create .js ile named featureNameSlice.js --> writing Slice at end is best convention when working with rtk
+we breakdown redux features into slices
+features Folder 
+      ... cake -> featureFolder
+          ... cakeSlice.js -> feature slice file name
+now import a function to create slice 
+  ----------- const createSlice = require('@reduxjs/toolkit').createSlice  ---------------
+1. create a state 
+      eg:
+          const initialState = {
+            noOfCakes : 10,
+          }
+2. invoke this function and assign it to a constant
+     const cakeSlice = createSlice({ // create slice function takes object as input and here we have 3 properties
+         name: 'cake', // we give a name for this slice
+         initialState : initialState // specify initialState as key and value --> if key and value are same then we can just give initialState
+         reducers: { // for reducers we give input as object -> it is full of 
+           ordered : (state,action)=>{ // we give action Name as key and what to do when that action is used in form of function as its value
+             state.noOfCakes-=action.payload; // in redux toolkit we dont have to explicitly return the state we can directly mutate it  --> redux toolkit uses immer library under the hood to achive this
+           },
+           restocked : (state,action)=>{ // action is optional here we can give if needed and it is an object
+             state.noOfCakes+=action.payload;
+           }
+     })
+3. what about action creators
+        --> well createSlice will automatically creates action creators with the same names as reducer functions we have written (ordered and restocked)
+        --> apart from action creators it will return the main reducer function which we can provide to our redux store
+4. now just export the reducer and action creators as
+       --> module.exports = cakeSlice.reducer
+       --> module.exports.cakeActions = cakeSlice.actions  --> named export
+this slice effectively takes care of creating actions, action objects and action creators as well as all reducer state updates and switch statements
