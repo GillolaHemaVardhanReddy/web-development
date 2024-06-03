@@ -3,6 +3,15 @@ we create store in app folder in the structure
 ... app folder 
       ... store.js
 in store.js
+
+ADDING REDUX MIDDLEWARE:
+
+lets take a middleware named reduxLogger
+1. nom i redux-logger
+2. const reduxLogger = require('redux-logger')
+3. const logger = reduxLogger.createLogger();
+logger will just return present past and future state after every update doen in store
+
 in redux we created store using createStore from redux module but here we create store using configureStore 
 1. const configureStore = require('@redux/toolkit').configureStore
 2. import the reducer exported from features eg: cakeReducer we exported in part 5
@@ -13,6 +22,8 @@ in redux we created store using createStore from redux module but here we create
         cake: cakeReducer, // cake is key name for cakeReducer
         icecream: iceCreamReducer, // as reducer is default export we imported as other name
       },
+      middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(logger) // key name middleware and for the list of default middleware retrived
+                                                                                          from getDefaultMiddleware we add our logger middleware using concat
   })
 our store is now complete
 4. now export this store
