@@ -10,8 +10,8 @@ STATE in async:
 ACTIONS in async : these actions are pretty normal not an async actions --> original async functions are at end of this docs
   eg: it might be like 
       const fetchUsersRequest = ()=> return { type: FETCH_USER_REQUESTED, info: 'started fetching user data'} -> action indicates to fetch for useres data from an end point
-      const fetchUsersSuccess = ()=> return {type: FETCH_USERS_SUCCEEDED,info: 'users successfully retrived'} -> if users data retrived successful then this action will be used
-      const fetchUsersFail = ()=> return {type: FETCH_USERS_FAIL, info: 'failed to fetch data'} -> is useres retrival fails then we use this action 
+      const fetchUsersSuccess = (users)=> return {type: FETCH_USERS_SUCCEEDED,payload: users} -> if users data retrived successful then this action will be used
+      const fetchUsersFail = (error)=> return {type: FETCH_USERS_FAIL, payload:error} -> is useres retrival fails then we use this action 
 
 REDUCER in async:
   eg: 
