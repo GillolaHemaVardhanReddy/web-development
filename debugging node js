@@ -1,0 +1,7 @@
+at best there are two methods to debug they are:
+1. console.log()  --> use this to break and divide the code check whats happening at each and every step
+2. add this word at the place where you what to know the variable values "debugger" and
+  use --> node inspect nodeAppname.js or node --inspect-brk nodeAppname.js
+  goto chrome and type chrome://inspect and go to devices 
+     in remote target you see a port and localhost 
+       this screen appears only when used debugger word in code and terminal changes to debug console and to shutdown the debug console click ctrl c twice
