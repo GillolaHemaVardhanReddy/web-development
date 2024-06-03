@@ -1,0 +1,72 @@
+IN OLD VERSION
+when creating multiple reducers for multiple states and combining each with combineReducers function
+whenever an action is dispatched using a store then every reducer checks if the action is present in its switch case or not if not there it wont update
+  but if present it updates the state 
+also reducer can only update or manipulate its repective state only 
+eg:
+  const cakeReducer = (state=initialState,action){
+    case CAKE_ORDER : 
+        return {
+          ...state,
+          noOfCakes : state.noOfCakes - 1,
+        }
+    default:
+      return state
+  }
+  const iceCreamReducer = (state=initialState,action){
+    case CAKE_ORDER : 
+        return {
+          ...state,
+          noOfIcereams : state.noOfIcecreams - 1,
+        }
+    default:
+      return state
+  }
+
+when dispatched the action CAKE_ORDER both states noOfCakes and noOfIcecreams get reduced by 1
+iceCreamReducer only updates its respective state not cakes
+
+so every reducer will listen to the action dispatched if it has the action in switch case it responds else ignores
+
+
+IN NEWER VERSION OF REDUX ---> REDUX TOOLKIT
+every reducer wont listen to each action it only listens to its respective actions and performs updates/modifications on its respective state
+
+extra reducers are the reducers created apart from the reducers created from createSlice 
+syntax:
+we add extra key value pair for createSlice method object arg
+
+key is extraReducers: {other reducers}
+
+eg:
+const cakeSlice = createSlice({
+  name: 'cake',
+  initialState: ourState,
+  reducers: {
+    ordered: (state,action)=>{some action},
+    restocked : (state,action)=>{some action}
+  },
+  extraReducers:{
+    ['otherSliceName/theirreducerkeyName']: (state,action)=>{  // eg ['icecream/ordered']
+      state.noOfCakes==action.payload
+    },
+  }
+})
+
+instead of using above syntax like adding key values we use function like below
+
+eg:
+const cakeSlice = createSlice({
+  name: 'cake',
+  initialState: ourState,
+  reducers: {
+    ordered: (state,action)=>{some action},
+    restocked : (state,action)=>{some action}
+  },
+  extraReducers:(builder)=>{ // we use this builder to add a new case like in old version of switch case redux reducer
+    builder.addCase(iceCreamActions.ordered, (state,action)=>{ // import iceCreamActions from icecream feature where created
+                                                              //from iceCremSlice and use that here when that action is dispatched we give what to do as function in here cake feature
+      state.noOfCakes-=action.payload
+    })
+  }
+})
