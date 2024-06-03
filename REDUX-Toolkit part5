@@ -46,6 +46,6 @@ now import a function to create slice
         --> well createSlice will automatically creates action creators with the same names as reducer functions we have written (ordered and restocked)
         --> apart from action creators it will return the main reducer function which we can provide to our redux store
 4. now just export the reducer and action creators as
-       --> module.exports = cakeSlice.reducer
-       --> module.exports.cakeActions = cakeSlice.actions  --> named export
+       --> module.exports = cakeSlice.reducer // this is default export
+       --> module.exports.cakeActions = cakeSlice.actions  // this named export
 this slice effectively takes care of creating actions, action objects and action creators as well as all reducer state updates and switch statements
