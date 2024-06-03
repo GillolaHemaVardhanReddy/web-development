@@ -1,0 +1,23 @@
+now lets say we have more features in the redux
+features are just like states 
+so 
+1. const createSlice = require('@redux/toolkit').createSlice
+2. create an initial state 
+const initialState = {
+  noOfIceCreams : 10
+}
+3. const iceCreamSlice = createSlice({
+  name: 'icecream',
+  initialState,
+  reducers: {
+    ordered : (state,action)=>{
+      state.noOfIceCreams-=action.payload;
+    },
+    restocked : (state,action)=>{
+      state.noOfIceCreams+=action.payload;
+    },
+  }
+})
+4. export reducer as default reducer and actions as named exports
+module.exports = iceCreamSlice.reducer
+module.exports.iceCreamActions = iceCreamSlice.actions
