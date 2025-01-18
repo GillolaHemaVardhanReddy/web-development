@@ -1,0 +1,127 @@
+const express = require('express');
+is a module. Specifically, it is the Express module that you import into your Node.js application. 
+The require('express') statement loads the Express module, and in this case, it is returning a function, 
+which is often used as a constructor to create an Express application instance.
+
+So, express is a module, and express() (the function you call after importing the module) creates an instance of an Express application.
+
+A callback function is a function passed as an argument to another function, which is then invoked (called back) at a later time, 
+usually after some kind of operation or task is completed.
+
+const fs = require('fs');
+// Using a callback to handle file reading
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading file:', err);
+    return;
+  }
+  console.log('File content:', data);
+});
+Callback function: (err, data) => { ... } is a callback function that gets called when the file read operation is complete.
+The readFile function itself is asynchronous; it doesn't block the rest of the code from running. The callback is executed when the operation finishes.
+
+
+An async function is a function that returns a promise and can be used with await. 
+It simplifies working with asynchronous code, making it look more like synchronous code. 
+async and await provide a cleaner syntax than traditional callbacks or even promises.
+
+async: Marks a function as asynchronous.
+await: Pauses the execution of the async function until the promise is resolved or rejected.
+
+
+const fs = require('fs').promises;
+async function readFileAsync() {
+  try {
+    const data = await fs.readFile('example.txt', 'utf8');
+    console.log('File content:', data);
+  } catch (err) {
+    console.error('Error reading file:', err);
+  }
+}
+
+readFileAsync();
+async function: readFileAsync is an asynchronous function.
+await keyword: This tells the program to wait for the promise returned by fs.readFile() to resolve before continuing the execution.
+
+
+Callback hell, also referred to as Pyramid of Doom, is a term used to describe the situation in which you have deeply nested callback functions, 
+leading to difficult-to-read and hard-to-maintain code. This typically occurs in asynchronous programming, 
+especially when dealing with multiple I/O operations that depend on each other.
+
+in asynchronous programming, when you have tasks that need to be executed in a specific sequence 
+(i.e., one task must finish before the next starts), each subsequent task is often nested inside the callback of the previous one.
+
+solutions for call back hell
+
+1. extracting callbacks :
+function readFile1(err, data1) {
+  if (err) {
+    console.log('Error reading file1.txt');
+    return;
+  }
+
+  readFile2(data1);
+}
+
+function readFile2(data1) {
+  fs.readFile('file2.txt', 'utf8', (err, data2) => {
+    if (err) {
+      console.log('Error reading file2.txt');
+      return;
+    }
+
+    readFile3(data1, data2);
+  });
+}
+
+function readFile3(data1, data2) {
+  fs.readFile('file3.txt', 'utf8', (err, data3) => {
+    if (err) {
+      console.log('Error reading file3.txt');
+      return;
+    }
+
+    console.log('Data from all files:', data1, data2, data3);
+  });
+}
+
+fs.readFile('file1.txt', 'utf8', readFile1);
+
+
+2. Example of using Promises:
+
+const fs = require('fs').promises;
+
+fs.readFile('file1.txt', 'utf8')
+  .then(data1 => {
+    return fs.readFile('file2.txt', 'utf8');
+  })
+  .then(data2 => {
+    return fs.readFile('file3.txt', 'utf8');
+  })
+  .then(data3 => {
+    console.log('Data from all files:', data1, data2, data3);
+  })
+  .catch(err => {
+    console.log('Error:', err);
+  });
+
+3. async/await :
+
+const fs = require('fs').promises;
+
+async function readFiles() {
+  try {
+    const data1 = await fs.readFile('file1.txt', 'utf8');
+    const data2 = await fs.readFile('file2.txt', 'utf8');
+    const data3 = await fs.readFile('file3.txt', 'utf8');
+    
+    console.log('Data from all files:', data1, data2, data3);
+  } catch (err) {
+    console.log('Error:', err);
+  }
+}
+
+readFiles();
+
+
